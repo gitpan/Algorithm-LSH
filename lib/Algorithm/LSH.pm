@@ -8,7 +8,7 @@ use Scalar::Util qw(blessed);
 use Carp;
 use Storable qw( retrieve store );
 
-our $VERSION = '0.00001_00';
+our $VERSION = '0.00001_01';
 
 __PACKAGE__->mk_accessors($_) for qw( hash bucket storage );
 
@@ -132,17 +132,32 @@ Algorithm::LSH - perl implementation of Locality Sensitive Hashing
   use Algorithm::LSH;
 
   my $lsh = Algorithm::LSH->new(
-      L => 5,
-      k => 10,
-      d => 3,
+      L => 5,   # number of hash functions
+      k => 10,  # number of reductions
+      d => 3,   # number of dimentions,
   );
 
+  
   while(my($label, $vector) = each %database){
       $lsh->insert($label, $vector);
   }
 
+  $lsh->save("data.bin");
+
   my $query_vector = [ 123, 456, 789 ];
-  my $result = $lsh->select($query_vector);
+
+  $lsh->load("data.bin");
+
+  my $neighbours = $lsh->neighbours($query_vector);
+  my $nearest    = $lsh->nearest($neighbours);
+
+  # or 
+
+  my $nearest    = $lsh->nearest_neighbours($query_vector);
+
+  # or 
+
+  my $nearest    = $lsh->nn($query_vector);
 
 =head1 DESCRIPTION
 
@@ -154,27 +169,53 @@ B<THIS MODULE IS IN ITS VERY ALPHA QUALITY.>
 
 =head2 new
 
+constructor. it needs three parameters.
+
+      L :  a number of hash function. 
+      k :  a number of reduction. it must be smaller than parameter 'd'.
+      d :  a number of dimention.
+
 =head2 insert
+
+insert a vector data to buckets.
 
 =head2 neighbours
 
+it extracts some datas as neighbours with query vector.
+
 =head2 nearest
+
+pickup 1 nearest data from neighbours.
 
 =head2 nearest_neighbours
 
+it does neighbours() and nearset() at onece.
+
 =head2 nn
+
+an alias of nearest_neighbours()
 
 =head2 distance
 
 =head2 save
 
+save the data to storage.
+
 =head2 load
+
+load th data from storage
 
 =head2 hash
 
+accessor method
+
 =head2 bucket
 
+accessor method
+
 =head2 storage
+
+accessor method
 
 =head1 AUTHOR
 

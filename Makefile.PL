@@ -11,6 +11,7 @@ requires 'List::Util';
 requires 'List::MoreUtils';
 requires 'Scalar::Util';
 
+build_requires 'FindBin::libs';;
 build_requires 'Test::More';
 use_test_base;
 auto_include;

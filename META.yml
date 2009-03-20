@@ -3,6 +3,7 @@ abstract: 'perl implementation of Locality Sensitive Hashing'
 author:
   - 'Takeshi Miki <miki@cpan.org>'
 build_requires:
+  FindBin::libs: 0
   Test::More: 0
 distribution_type: module
 generated_by: 'Module::Install version 0.77'
@@ -27,4 +28,4 @@ requires:
   UNIVERSAL::require: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.00001_00
+version: 0.00001_01

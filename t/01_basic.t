@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Algorithm::LSH;
-use Test::More tests => 16;
+use Test::More tests => 15;
 
 {
     my $lsh = Algorithm::LSH->new(d => 100, L =>3, k => 10);
@@ -14,7 +14,6 @@ use Test::More tests => 16;
 {
     my $lsh = Algorithm::LSH->new(d => 100, L =>3, k => 10);
     can_ok( $lsh, 'new' );
-    can_ok( $lsh, 'insert' );
     can_ok( $lsh, 'nearest_neighbours' );
     can_ok( $lsh, 'nn' );
     can_ok( $lsh, 'neighbours' );
